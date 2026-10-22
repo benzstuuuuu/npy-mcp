@@ -10,6 +10,10 @@
 # refs like pigrabbboy/npy-mcp:latest are left alone). A .bak-* backup is made
 # before every write, and a second run changes nothing.
 #
+# Run inside a git clone, it also rewrites that clone's npy-mcp remotes (fetch
+# and push URLs, HTTPS and SSH) with `git config`. The old URL is printed, so a
+# change is easy to revert; no backup is made.
+#
 # Preview only:
 #   curl -fsSL .../migrate-owner.sh | bash -s -- --dry-run
 
@@ -102,14 +106,59 @@ for given in sys.argv[2:]:
         print("FAILED\t" + given + " (" + str(err) + ")")
 PY
 
+# A clone made before the move keeps its remotes on the old owner. Only lines
+# that change (or fail) are printed. `git config --replace-all` with an
+# anchored value pattern edits one value of a multi-valued key. Credentials in
+# a URL are masked in the output.
+read -r -d '' REMOTES_PY <<'PY' || true
+import re, subprocess, sys
+
+RULE = re.compile(r"(github\.com[:/])PigRabbBoy/npy-mcp(?![\w-])", re.I)
+REPLACEMENT = r"\1benzstuuuuu/npy-mcp"
+dry_run = sys.argv[1] == "1"
+
+def git_config(*args):
+    return subprocess.run(("git", "config", "--local") + args, capture_output=True, text=True)
+
+def masked(url):
+    return re.sub(r"(://[^/@:]+:)[^/@]+@", r"\1***@", url)
+
+def as_ere(text):
+    return "^" + re.sub(r"([.\[\\*+?(){}|^$])", r"\\\1", text) + "$"
+
+listing = git_config("-z", "--get-regexp", r"^remote\..+\.(url|pushurl)$")
+seen = set()
+for entry in listing.stdout.split("\0"):
+    key, _, old = entry.partition("\n")
+    new = RULE.sub(REPLACEMENT, old)
+    if new == old or (key, old) in seen:
+        continue
+    seen.add((key, old))
+    cut = key.rindex(".")
+    what = "git remote " + key[len("remote."):cut] + " (" + key[cut + 1:] + "): " + masked(old) + " -> " + masked(new)
+    if dry_run:
+        print("WOULD UPDATE\t" + what)
+        continue
+    done = git_config("--replace-all", key, new, as_ere(old))
+    if done.returncode == 0:
+        print("UPDATED\t" + what)
+    else:
+        print("FAILED\t" + what + " (" + done.stderr.strip() + ")")
+PY
+
 results="$(python3 -I -c "$REWRITE_PY" "$DRY_RUN" "${CONFIG_PATHS[@]}")"
 
-updated=0 ok=0 failed=0
+if command -v git >/dev/null 2>&1 && [[ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" == true ]]; then
+  results+=$'\n'"$(python3 -I -c "$REMOTES_PY" "$DRY_RUN")"
+fi
+
+updated=0 remotes=0 ok=0 failed=0
 while IFS=$'\t' read -r status path; do
   [[ -n "$status" ]] || continue
   printf '%-13s %s\n' "$status" "$path"
   case "$status" in
-    UPDATED|"WOULD UPDATE") updated=$((updated + 1)) ;;
+    UPDATED|"WOULD UPDATE") updated=$((updated + 1))
+                            [[ "$path" != "git remote "* ]] || remotes=$((remotes + 1)) ;;
     OK)                     ok=$((ok + 1)) ;;
     FAILED)                 failed=$((failed + 1)) ;;
   esac
@@ -117,9 +166,9 @@ done <<< "$results"
 
 echo
 if [[ $DRY_RUN -eq 1 ]]; then
-  say "Dry run: $updated file(s) would change, $ok already fine. Nothing was written."
+  say "Dry run: $updated item(s) would change, $ok already fine. Nothing was written."
 else
   say "Done: $updated updated, $ok already fine."
-  [[ $updated -eq 0 ]] || say "Restart your AI clients (Claude Desktop, Claude Code, Cursor, VS Code, Codex, …) so they pick up the new URL."
+  [[ $((updated - remotes)) -eq 0 ]] || say "Restart your AI clients (Claude Desktop, Claude Code, Cursor, VS Code, Codex, …) so they pick up the new URL."
 fi
-[[ $failed -eq 0 ]] || die "$failed file(s) could not be updated (see FAILED lines above)"
+[[ $failed -eq 0 ]] || die "$failed item(s) could not be updated (see FAILED lines above)"

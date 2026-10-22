@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - New `scripts/migrate-owner.sh` / `scripts/migrate-owner.ps1`: one-command, idempotent
   rewrite of `github.com/PigRabbBoy/npy-mcp` to `benzstuuuuu/npy-mcp` in existing AI-client
   configs (backup first, `--dry-run` / `-DryRun` to preview, Docker Hub refs untouched).
+  Run inside a `git clone`, it also rewrites that clone's `npy-mcp` git remotes (fetch and
+  push URLs, HTTPS and SSH) via `git config`, printing the old URL; no backup for remotes.
 
 ## [2.2.4] - 2026-10-07
 

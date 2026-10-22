@@ -84,7 +84,8 @@ curl -fsSL https://raw.githubusercontent.com/benzstuuuuu/npy-mcp/master/scripts/
 `benzstuuuuu`. If you installed earlier, your AI client config still points at
 `github.com/PigRabbBoy/npy-mcp`, which works only while GitHub keeps redirecting the
 old name. This rewrites that URL in place (backup first, Docker Hub refs untouched,
-safe to re-run; add `--dry-run` / `-DryRun` to preview):
+safe to re-run; add `--dry-run` / `-DryRun` to preview). Run inside a `git clone`, it
+also fixes that clone's git remote:
 ```bash
 curl -fsSL https://raw.githubusercontent.com/benzstuuuuu/npy-mcp/master/scripts/migrate-owner.sh | bash
 ```

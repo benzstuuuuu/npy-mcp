@@ -80,7 +80,8 @@ curl -fsSL https://raw.githubusercontent.com/benzstuuuuu/npy-mcp/master/scripts/
 変わりました。以前にインストールした場合、AI クライアントの設定は
 `github.com/PigRabbBoy/npy-mcp` を指したままで、GitHub が旧名のリダイレクトを続けている間しか
 動きません。このスクリプトはその URL をその場で書き換えます（事前にバックアップを作成、
-Docker Hub の参照は変更せず、再実行しても安全。`--dry-run` / `-DryRun` で書き込まずに確認できます）：
+Docker Hub の参照は変更せず、再実行しても安全。`--dry-run` / `-DryRun` で書き込まずに確認できます）。
+`git clone` の中で実行すると、その clone の git remote も修正します：
 ```bash
 curl -fsSL https://raw.githubusercontent.com/benzstuuuuu/npy-mcp/master/scripts/migrate-owner.sh | bash
 ```

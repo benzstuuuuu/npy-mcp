@@ -12,6 +12,10 @@
 # every known AI-client config. Nothing else in the file changes (Docker Hub
 # refs like pigrabbboy/npy-mcp:latest are left alone). A .bak-* backup is made
 # before every write, and a second run changes nothing.
+#
+# Run inside a git clone, it also rewrites that clone's npy-mcp remotes (fetch
+# and push URLs, HTTPS and SSH) with `git config`. The old URL is printed, so a
+# change is easy to revert; no backup is made.
 
 param(
   [switch]$DryRun
@@ -80,11 +84,42 @@ foreach ($given in $configPaths) {
   }
 }
 
+# A clone made before the move keeps its remotes on the old owner. Only lines
+# that change (or fail) are printed. `git config --replace-all` with an anchored
+# value pattern edits one value of a multi-valued key. Credentials in a URL are
+# masked in the output.
+function Mask-Url($url) { [regex]::Replace($url, '(://[^/@:]+:)[^/@]+@', '${1}***@') }
+
+$remotes = 0
+if ((Get-Command git -ErrorAction SilentlyContinue) -and ((git rev-parse --is-inside-work-tree 2>$null) -eq 'true')) {
+  $remoteRule = '(?i)(github\.com[:/])PigRabbBoy/npy-mcp(?![\w-])'
+  $seenRemote = @{}
+  foreach ($line in @(git config --local --get-regexp '^remote\..+\.(url|pushurl)$' 2>$null)) {
+    $key, $old = "$line" -split ' ', 2
+    $new = [regex]::Replace($old, $remoteRule, $replacement)
+    if (($new -ceq $old) -or $seenRemote.ContainsKey("$key $old")) { continue }
+    $seenRemote["$key $old"] = $true
+    $cut = $key.LastIndexOf('.')
+    $what = "git remote $($key.Substring(7, $cut - 7)) ($($key.Substring($cut + 1))): $(Mask-Url $old) -> $(Mask-Url $new)"
+    if ($DryRun) {
+      Write-Host ("{0,-13} {1}" -f "WOULD UPDATE", $what); $updated++; $remotes++
+      continue
+    }
+    $valueRegex = '^' + ($old -replace '([.\[\\*+?(){}|^$])', '\$1') + '$'
+    git config --local --replace-all $key $new $valueRegex 2>$null
+    if ($LASTEXITCODE -eq 0) {
+      Write-Host ("{0,-13} {1}" -f "UPDATED", $what); $updated++; $remotes++
+    } else {
+      Write-Host ("{0,-13} {1}" -f "FAILED", $what); $failed++
+    }
+  }
+}
+
 Write-Host ""
 if ($DryRun) {
-  Say "Dry run: $updated file(s) would change, $ok already fine. Nothing was written."
+  Say "Dry run: $updated item(s) would change, $ok already fine. Nothing was written."
 } else {
   Say "Done: $updated updated, $ok already fine."
-  if ($updated -gt 0) { Say "Restart your AI clients (Claude Desktop, Claude Code, Cursor, VS Code, Codex, ...) so they pick up the new URL." }
+  if ($updated -gt $remotes) { Say "Restart your AI clients (Claude Desktop, Claude Code, Cursor, VS Code, Codex, ...) so they pick up the new URL." }
 }
-if ($failed -gt 0) { Die "$failed file(s) could not be updated (see FAILED lines above)" }
+if ($failed -gt 0) { Die "$failed item(s) could not be updated (see FAILED lines above)" }
