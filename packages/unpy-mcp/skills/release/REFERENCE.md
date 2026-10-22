@@ -101,7 +101,7 @@ Map commit prefixes to changelog categories:
 gh release create vX.Y.Z \
   --title "vX.Y.Z" \
   --notes-file CHANGELOG.md \
-  -R PigRabbBoy/npy-mcp
+  -R benzstuuuuu/npy-mcp
 ```
 
 Note: `--notes-file CHANGELOG.md` uses the full file. To use only the relevant
@@ -110,25 +110,25 @@ section, extract it first:
 ```bash
 # Extract the X.Y.Z section from CHANGELOG.md
 awk '/^## \[0\.2\.1\]/{found=1} /^## \[0\.2\.0\]/{exit} found' CHANGELOG.md > /tmp/release-notes.md
-gh release create vX.Y.Z --title "vX.Y.Z" --notes-file /tmp/release-notes.md -R PigRabbBoy/npy-mcp
+gh release create vX.Y.Z --title "vX.Y.Z" --notes-file /tmp/release-notes.md -R benzstuuuuu/npy-mcp
 ```
 
 ### Create release with auto-generated notes
 
 ```bash
-gh release create vX.Y.Z --generate-notes -R PigRabbBoy/npy-mcp
+gh release create vX.Y.Z --generate-notes -R benzstuuuuu/npy-mcp
 ```
 
 ### List releases
 
 ```bash
-gh release list -R PigRabbBoy/npy-mcp
+gh release list -R benzstuuuuu/npy-mcp
 ```
 
 ### View a release
 
 ```bash
-gh release view vX.Y.Z -R PigRabbBoy/npy-mcp
+gh release view vX.Y.Z -R benzstuuuuu/npy-mcp
 ```
 
 ## Docker release
@@ -168,7 +168,7 @@ If a release goes wrong, rollback in reverse order:
 ### 1. Delete GitHub Release
 
 ```bash
-gh release delete vX.Y.Z -R PigRabbBoy/npy-mcp --yes
+gh release delete vX.Y.Z -R benzstuuuuu/npy-mcp --yes
 ```
 
 ### 2. Delete git tag (local + remote)
@@ -204,7 +204,7 @@ For a confirmed release (all checks pass, user approved):
 # 3. Commit + tag + push
 git add -A && git commit -m "release: vX.Y.Z" && git tag vX.Y.Z && git push origin master --tags
 # 4. GitHub Release
-gh release create vX.Y.Z --generate-notes -R PigRabbBoy/npy-mcp
+gh release create vX.Y.Z --generate-notes -R benzstuuuuu/npy-mcp
 # 5. Docker (optional)
 cd packages/unpy-mcp && docker build -t pigrabbboy/npy-mcp:X.Y.Z -t pigrabbboy/npy-mcp:latest . && docker push pigrabbboy/npy-mcp:X.Y.Z && docker push pigrabbboy/npy-mcp:latest
 ```

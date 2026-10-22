@@ -2,7 +2,7 @@
 # npy-mcp installer — macOS + Linux
 #
 # Single command:
-#   curl -fsSL https://raw.githubusercontent.com/PigRabbBoy/npy-mcp/master/scripts/install.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/benzstuuuuu/npy-mcp/master/scripts/install.sh | bash
 #
 # Or with flags (non-interactive):
 #   curl -fsSL .../install.sh | bash -s -- \
@@ -19,7 +19,7 @@
 
 set -euo pipefail
 
-REPO_URL="git+https://github.com/PigRabbBoy/npy-mcp@v2.1.0#subdirectory=packages/unpy-mcp"
+REPO_URL="git+https://github.com/benzstuuuuu/npy-mcp@v2.1.0#subdirectory=packages/unpy-mcp"
 SERVER_ARGS=(--refresh --from "$REPO_URL" unpy-mcp)
 
 # ---------------------------------------------------------------- utilities
@@ -363,7 +363,7 @@ except Exception:
     cfg = {}
 entry = {
     "command": uvx,
-    "args": ["--refresh", "--from", "git+https://github.com/PigRabbBoy/npy-mcp@v2.1.0#subdirectory=packages/unpy-mcp", "unpy-mcp"],
+    "args": ["--refresh", "--from", "git+https://github.com/benzstuuuuu/npy-mcp@v2.1.0#subdirectory=packages/unpy-mcp", "unpy-mcp"],
     "env": {"NOTION_TOKEN_V2": token},
 }
 if allow == "1":
@@ -405,7 +405,7 @@ if space:
     env["NOTION_SPACE_ID"] = space
 entry = {
     "command": uvx,
-    "args": ["--refresh", "--from", "git+https://github.com/PigRabbBoy/npy-mcp@v2.1.0#subdirectory=packages/unpy-mcp", "unpy-mcp"],
+    "args": ["--refresh", "--from", "git+https://github.com/benzstuuuuu/npy-mcp@v2.1.0#subdirectory=packages/unpy-mcp", "unpy-mcp"],
     "env": env,
 }
 mcp["unpy-mcp"] = entry
@@ -453,7 +453,7 @@ if space:
     env["NOTION_SPACE_ID"] = space
 entry = {
     "type": "local",
-    "command": [uvx, "--refresh", "--from", "git+https://github.com/PigRabbBoy/npy-mcp@v2.1.0#subdirectory=packages/unpy-mcp", "unpy-mcp"],
+    "command": [uvx, "--refresh", "--from", "git+https://github.com/benzstuuuuu/npy-mcp@v2.1.0#subdirectory=packages/unpy-mcp", "unpy-mcp"],
     "environment": env,
     "enabled": True,
 }
@@ -660,7 +660,7 @@ if [[ -z "$SKILL_SRC" ]]; then
   # running via `curl | bash` — no repo checkout; fetch the skill files
   SKILL_TMP="$(mktemp -d)/unpy-mcp"
   mkdir -p "$SKILL_TMP"
-  base="https://raw.githubusercontent.com/PigRabbBoy/npy-mcp/master/packages/unpy-mcp/skills/unpy-mcp"
+  base="https://raw.githubusercontent.com/benzstuuuuu/npy-mcp/master/packages/unpy-mcp/skills/unpy-mcp"
   if curl -fsSL "$base/SKILL.md" -o "$SKILL_TMP/SKILL.md" 2>/dev/null \
      && curl -fsSL "$base/TOOLS.md" -o "$SKILL_TMP/TOOLS.md" 2>/dev/null; then
     SKILL_SRC="$SKILL_TMP"
@@ -785,4 +785,4 @@ if [[ ${#SKILL_CLIENTS[@]} -gt 0 ]]; then
 fi
 echo
 echo "  To change settings later: re-run this installer (values are updated in place)."
-echo "  To uninstall: curl -fsSL https://raw.githubusercontent.com/PigRabbBoy/npy-mcp/master/scripts/uninstall.sh | bash"
+echo "  To uninstall: curl -fsSL https://raw.githubusercontent.com/benzstuuuuu/npy-mcp/master/scripts/uninstall.sh | bash"

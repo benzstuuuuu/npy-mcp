@@ -45,12 +45,12 @@ Notion の内部 API（v3）向けの非公式 Python 3.12+ クライアント�
 
 **macOS / Linux：**
 ```bash
-curl -fsSL https://raw.githubusercontent.com/PigRabbBoy/npy-mcp/master/scripts/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/benzstuuuuu/npy-mcp/master/scripts/install.sh | bash
 ```
 
 **Windows（PowerShell）：**
 ```powershell
-irm https://raw.githubusercontent.com/PigRabbBoy/npy-mcp/master/scripts/install.ps1 | iex
+irm https://raw.githubusercontent.com/benzstuuuuu/npy-mcp/master/scripts/install.ps1 | iex
 ```
 
 インストーラーの質問：
@@ -66,14 +66,14 @@ irm https://raw.githubusercontent.com/PigRabbBoy/npy-mcp/master/scripts/install.
 
 **スクリプト / CI での利用？** フラグでプロンプトをスキップできます：
 ```bash
-curl -fsSL https://raw.githubusercontent.com/PigRabbBoy/npy-mcp/master/scripts/install.sh | bash -s -- \
+curl -fsSL https://raw.githubusercontent.com/benzstuuuuu/npy-mcp/master/scripts/install.sh | bash -s -- \
   --client claude-desktop --client cursor \
   --token "v03%3AeyJ..." --allow-write
 ```
 
 **アンインストール：**
 ```bash
-curl -fsSL https://raw.githubusercontent.com/PigRabbBoy/npy-mcp/master/scripts/uninstall.sh | bash
+curl -fsSL https://raw.githubusercontent.com/benzstuuuuu/npy-mcp/master/scripts/uninstall.sh | bash
 ```
 
 <details>
@@ -88,7 +88,7 @@ curl -fsSL https://raw.githubusercontent.com/PigRabbBoy/npy-mcp/master/scripts/u
   "mcpServers": {
     "unpy-mcp": {
       "command": "uvx",
-      "args": ["--refresh", "--from", "git+https://github.com/PigRabbBoy/npy-mcp@v2.1.0#subdirectory=packages/unpy-mcp", "unpy-mcp"],
+      "args": ["--refresh", "--from", "git+https://github.com/benzstuuuuu/npy-mcp@v2.1.0#subdirectory=packages/unpy-mcp", "unpy-mcp"],
       "env": {
         "NOTION_TOKEN_V2": "v03%3AeyJ..."
       }
@@ -104,7 +104,7 @@ curl -fsSL https://raw.githubusercontent.com/PigRabbBoy/npy-mcp/master/scripts/u
     "unpy-mcp": {
       "type": "stdio",
       "command": "uvx",
-      "args": ["--refresh", "--from", "git+https://github.com/PigRabbBoy/npy-mcp@v2.1.0#subdirectory=packages/unpy-mcp", "unpy-mcp"],
+      "args": ["--refresh", "--from", "git+https://github.com/benzstuuuuu/npy-mcp@v2.1.0#subdirectory=packages/unpy-mcp", "unpy-mcp"],
       "env": { "NOTION_TOKEN_V2": "v03%3AeyJ..." }
     }
   }
@@ -115,7 +115,7 @@ curl -fsSL https://raw.githubusercontent.com/PigRabbBoy/npy-mcp/master/scripts/u
 ```toml
 [mcp_servers.unpy-mcp]
 command = "uvx"
-args = ["--refresh", "--from", "git+https://github.com/PigRabbBoy/npy-mcp@v2.1.0#subdirectory=packages/unpy-mcp", "unpy-mcp"]
+args = ["--refresh", "--from", "git+https://github.com/benzstuuuuu/npy-mcp@v2.1.0#subdirectory=packages/unpy-mcp", "unpy-mcp"]
 env = { NOTION_TOKEN_V2 = "v03%3AeyJ..." }
 ```
 
@@ -132,7 +132,7 @@ env = { NOTION_TOKEN_V2 = "v03%3AeyJ..." }
   "mcpServers": {
     "unpy-mcp": {
       "command": "uvx",
-      "args": ["--refresh", "--from", "git+https://github.com/PigRabbBoy/npy-mcp@v2.1.0#subdirectory=packages/unpy-mcp", "unpy-mcp"],
+      "args": ["--refresh", "--from", "git+https://github.com/benzstuuuuu/npy-mcp@v2.1.0#subdirectory=packages/unpy-mcp", "unpy-mcp"],
       "env": { "NOTION_TOKEN_V2": "v03%3AeyJ..." }
     }
   }
@@ -155,7 +155,7 @@ CLI 内で `/mcp list` で確認できます。
 
 **pip install**（Python 開発者向け）：
 ```bash
-pip install "git+https://github.com/PigRabbBoy/npy-mcp@v2.1.0#subdirectory=packages/unpy-mcp"
+pip install "git+https://github.com/benzstuuuuu/npy-mcp@v2.1.0#subdirectory=packages/unpy-mcp"
 ```
 設定には `"command": "python"`、`"args": ["-m", "unpy_mcp"]` を使用してください。
 </details>
@@ -253,7 +253,7 @@ pip install "git+https://github.com/PigRabbBoy/npy-mcp@v2.1.0#subdirectory=packa
 
 ```bash
 # ソースからインストール（`unpy` コマンドが使えるようになります）
-git clone https://github.com/PigRabbBoy/npy-mcp.git && cd unpy-mcp
+git clone https://github.com/benzstuuuuu/npy-mcp.git && cd unpy-mcp
 uv sync
 export NOTION_TOKEN_V2="v03%3AeyJ..."
 uv run unpy --help

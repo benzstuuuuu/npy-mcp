@@ -153,7 +153,7 @@ Steps:
 5. Commit: `git commit -m "release: vX.Y.Z"`
 6. Tag: `git tag vX.Y.Z`
 7. Push: `git push origin master --tags`
-8. GitHub Release: `gh release create vX.Y.Z --generate-notes -R PigRabbBoy/npy-mcp`
+8. GitHub Release: `gh release create vX.Y.Z --generate-notes -R benzstuuuuu/npy-mcp`
 9. Docker (optional): build + tag + push to `pigrabbboy/npy-mcp:X.Y.Z` + `:latest`
 
 **Never skip releases after behavioral code changes** — users rely on

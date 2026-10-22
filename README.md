@@ -44,12 +44,12 @@ servers are kept; a backup is made before any edit):
 
 **macOS / Linux:**
 ```bash
-curl -fsSL https://raw.githubusercontent.com/PigRabbBoy/npy-mcp/master/scripts/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/benzstuuuuu/npy-mcp/master/scripts/install.sh | bash
 ```
 
 **Windows (PowerShell):**
 ```powershell
-irm https://raw.githubusercontent.com/PigRabbBoy/npy-mcp/master/scripts/install.ps1 | iex
+irm https://raw.githubusercontent.com/benzstuuuuu/npy-mcp/master/scripts/install.ps1 | iex
 ```
 
 The installer asks:
@@ -70,14 +70,14 @@ Then fully restart your AI client and ask:
 
 **Scripting / CI?** Use flags to skip the prompts:
 ```bash
-curl -fsSL https://raw.githubusercontent.com/PigRabbBoy/npy-mcp/master/scripts/install.sh | bash -s -- \
+curl -fsSL https://raw.githubusercontent.com/benzstuuuuu/npy-mcp/master/scripts/install.sh | bash -s -- \
   --client claude-desktop --client cursor \
   --token "v03%3AeyJ..." --allow-write
 ```
 
 **Uninstall:**
 ```bash
-curl -fsSL https://raw.githubusercontent.com/PigRabbBoy/npy-mcp/master/scripts/uninstall.sh | bash
+curl -fsSL https://raw.githubusercontent.com/benzstuuuuu/npy-mcp/master/scripts/uninstall.sh | bash
 ```
 
 <details>
@@ -92,7 +92,7 @@ curl -fsSL https://raw.githubusercontent.com/PigRabbBoy/npy-mcp/master/scripts/u
   "mcpServers": {
     "unpy-mcp": {
       "command": "uvx",
-      "args": ["--refresh", "--from", "git+https://github.com/PigRabbBoy/npy-mcp@v2.1.0#subdirectory=packages/unpy-mcp", "unpy-mcp"],
+      "args": ["--refresh", "--from", "git+https://github.com/benzstuuuuu/npy-mcp@v2.1.0#subdirectory=packages/unpy-mcp", "unpy-mcp"],
       "env": {
         "NOTION_TOKEN_V2": "v03%3AeyJ..."
       }
@@ -108,7 +108,7 @@ curl -fsSL https://raw.githubusercontent.com/PigRabbBoy/npy-mcp/master/scripts/u
     "unpy-mcp": {
       "type": "stdio",
       "command": "uvx",
-      "args": ["--refresh", "--from", "git+https://github.com/PigRabbBoy/npy-mcp@v2.1.0#subdirectory=packages/unpy-mcp", "unpy-mcp"],
+      "args": ["--refresh", "--from", "git+https://github.com/benzstuuuuu/npy-mcp@v2.1.0#subdirectory=packages/unpy-mcp", "unpy-mcp"],
       "env": { "NOTION_TOKEN_V2": "v03%3AeyJ..." }
     }
   }
@@ -119,7 +119,7 @@ curl -fsSL https://raw.githubusercontent.com/PigRabbBoy/npy-mcp/master/scripts/u
 ```toml
 [mcp_servers.unpy-mcp]
 command = "uvx"
-args = ["--refresh", "--from", "git+https://github.com/PigRabbBoy/npy-mcp@v2.1.0#subdirectory=packages/unpy-mcp", "unpy-mcp"]
+args = ["--refresh", "--from", "git+https://github.com/benzstuuuuu/npy-mcp@v2.1.0#subdirectory=packages/unpy-mcp", "unpy-mcp"]
 env = { NOTION_TOKEN_V2 = "v03%3AeyJ..." }
 ```
 
@@ -136,7 +136,7 @@ vars). To enable writes for Gemini: `allow_write = true` in
   "mcpServers": {
     "unpy-mcp": {
       "command": "uvx",
-      "args": ["--refresh", "--from", "git+https://github.com/PigRabbBoy/npy-mcp@v2.1.0#subdirectory=packages/unpy-mcp", "unpy-mcp"],
+      "args": ["--refresh", "--from", "git+https://github.com/benzstuuuuu/npy-mcp@v2.1.0#subdirectory=packages/unpy-mcp", "unpy-mcp"],
       "env": { "NOTION_TOKEN_V2": "v03%3AeyJ..." }
     }
   }
@@ -159,7 +159,7 @@ Verify inside the CLI with `/mcp list`.
 
 **pip install** (Python developers):
 ```bash
-pip install "git+https://github.com/PigRabbBoy/npy-mcp@v2.1.0#subdirectory=packages/unpy-mcp"
+pip install "git+https://github.com/benzstuuuuu/npy-mcp@v2.1.0#subdirectory=packages/unpy-mcp"
 ```
 Then use `"command": "python"`, `"args": ["-m", "unpy_mcp"]` in the config.
 </details>
@@ -259,7 +259,7 @@ Prefer the terminal? Same capabilities, 37 commands:
 
 ```bash
 # install from source (provides the `unpy` command)
-git clone https://github.com/PigRabbBoy/npy-mcp.git && cd unpy-mcp
+git clone https://github.com/benzstuuuuu/npy-mcp.git && cd unpy-mcp
 uv sync
 export NOTION_TOKEN_V2="v03%3AeyJ..."
 uv run unpy --help
@@ -445,7 +445,7 @@ The installer can copy the skill into every supported client in one step
 skips it):
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/PigRabbBoy/npy-mcp/master/scripts/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/benzstuuuuu/npy-mcp/master/scripts/install.sh | bash
 # → "Also install the unpy-mcp SKILL … ?" → a
 ```
 

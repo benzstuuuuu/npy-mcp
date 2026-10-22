@@ -80,13 +80,13 @@ git push origin master --tags
 ### Step 6 — GitHub Release
 
 ```bash
-gh release create vX.Y.Z --title "vX.Y.Z" --notes-file CHANGELOG.md -R PigRabbBoy/npy-mcp
+gh release create vX.Y.Z --title "vX.Y.Z" --notes-file CHANGELOG.md -R benzstuuuuu/npy-mcp
 ```
 
 Or auto-generate notes from commits:
 
 ```bash
-gh release create vX.Y.Z --generate-notes -R PigRabbBoy/npy-mcp
+gh release create vX.Y.Z --generate-notes -R benzstuuuuu/npy-mcp
 ```
 
 ### Step 7 — Docker (optional)

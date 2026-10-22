@@ -1,6 +1,6 @@
 # npy-mcp uninstaller — Windows PowerShell
 #
-#   irm https://raw.githubusercontent.com/PigRabbBoy/npy-mcp/master/scripts/uninstall.ps1 | iex
+#   irm https://raw.githubusercontent.com/benzstuuuuu/npy-mcp/master/scripts/uninstall.ps1 | iex
 #
 # Removes the "unpy-mcp" entry from the AI clients you pick. Other MCP
 # servers in the same config file are left untouched. A .bak-* backup is

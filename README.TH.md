@@ -45,12 +45,12 @@ client (MCP servers เดิมไม่ถูกแตะ มี backup ก่
 
 **macOS / Linux:**
 ```bash
-curl -fsSL https://raw.githubusercontent.com/PigRabbBoy/npy-mcp/master/scripts/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/benzstuuuuu/npy-mcp/master/scripts/install.sh | bash
 ```
 
 **Windows (PowerShell):**
 ```powershell
-irm https://raw.githubusercontent.com/PigRabbBoy/npy-mcp/master/scripts/install.ps1 | iex
+irm https://raw.githubusercontent.com/benzstuuuuu/npy-mcp/master/scripts/install.ps1 | iex
 ```
 
 ตัวติดตั้งจะถาม:
@@ -67,14 +67,14 @@ irm https://raw.githubusercontent.com/PigRabbBoy/npy-mcp/master/scripts/install.
 
 **เขียน script / ใช้ใน CI?** ใช้ flags เพื่อข้ามคำถาม:
 ```bash
-curl -fsSL https://raw.githubusercontent.com/PigRabbBoy/npy-mcp/master/scripts/install.sh | bash -s -- \
+curl -fsSL https://raw.githubusercontent.com/benzstuuuuu/npy-mcp/master/scripts/install.sh | bash -s -- \
   --client claude-desktop --client cursor \
   --token "v03%3AeyJ..." --allow-write
 ```
 
 **ถอนการติดตั้ง:**
 ```bash
-curl -fsSL https://raw.githubusercontent.com/PigRabbBoy/npy-mcp/master/scripts/uninstall.sh | bash
+curl -fsSL https://raw.githubusercontent.com/benzstuuuuu/npy-mcp/master/scripts/uninstall.sh | bash
 ```
 
 <details>
@@ -89,7 +89,7 @@ curl -fsSL https://raw.githubusercontent.com/PigRabbBoy/npy-mcp/master/scripts/u
   "mcpServers": {
     "unpy-mcp": {
       "command": "uvx",
-      "args": ["--refresh", "--from", "git+https://github.com/PigRabbBoy/npy-mcp@v2.1.0#subdirectory=packages/unpy-mcp", "unpy-mcp"],
+      "args": ["--refresh", "--from", "git+https://github.com/benzstuuuuu/npy-mcp@v2.1.0#subdirectory=packages/unpy-mcp", "unpy-mcp"],
       "env": {
         "NOTION_TOKEN_V2": "v03%3AeyJ..."
       }
@@ -105,7 +105,7 @@ curl -fsSL https://raw.githubusercontent.com/PigRabbBoy/npy-mcp/master/scripts/u
     "unpy-mcp": {
       "type": "stdio",
       "command": "uvx",
-      "args": ["--refresh", "--from", "git+https://github.com/PigRabbBoy/npy-mcp@v2.1.0#subdirectory=packages/unpy-mcp", "unpy-mcp"],
+      "args": ["--refresh", "--from", "git+https://github.com/benzstuuuuu/npy-mcp@v2.1.0#subdirectory=packages/unpy-mcp", "unpy-mcp"],
       "env": { "NOTION_TOKEN_V2": "v03%3AeyJ..." }
     }
   }
@@ -116,7 +116,7 @@ curl -fsSL https://raw.githubusercontent.com/PigRabbBoy/npy-mcp/master/scripts/u
 ```toml
 [mcp_servers.unpy-mcp]
 command = "uvx"
-args = ["--refresh", "--from", "git+https://github.com/PigRabbBoy/npy-mcp@v2.1.0#subdirectory=packages/unpy-mcp", "unpy-mcp"]
+args = ["--refresh", "--from", "git+https://github.com/benzstuuuuu/npy-mcp@v2.1.0#subdirectory=packages/unpy-mcp", "unpy-mcp"]
 env = { NOTION_TOKEN_V2 = "v03%3AeyJ..." }
 ```
 
@@ -132,7 +132,7 @@ env = { NOTION_TOKEN_V2 = "v03%3AeyJ..." }
   "mcpServers": {
     "unpy-mcp": {
       "command": "uvx",
-      "args": ["--refresh", "--from", "git+https://github.com/PigRabbBoy/npy-mcp@v2.1.0#subdirectory=packages/unpy-mcp", "unpy-mcp"],
+      "args": ["--refresh", "--from", "git+https://github.com/benzstuuuuu/npy-mcp@v2.1.0#subdirectory=packages/unpy-mcp", "unpy-mcp"],
       "env": { "NOTION_TOKEN_V2": "v03%3AeyJ..." }
     }
   }
@@ -155,7 +155,7 @@ env = { NOTION_TOKEN_V2 = "v03%3AeyJ..." }
 
 **pip install** (สำหรับคนเขียน Python):
 ```bash
-pip install "git+https://github.com/PigRabbBoy/npy-mcp@v2.1.0#subdirectory=packages/unpy-mcp"
+pip install "git+https://github.com/benzstuuuuu/npy-mcp@v2.1.0#subdirectory=packages/unpy-mcp"
 ```
 แล้วใช้ `"command": "python"`, `"args": ["-m", "unpy_mcp"]` ใน config
 </details>
@@ -253,7 +253,7 @@ write ไหม ถ้าอยากเปลี่ยนทีหลัง ใ
 
 ```bash
 # ติดตั้งจากซอร์ส (ได้คำสั่ง `unpy`)
-git clone https://github.com/PigRabbBoy/npy-mcp.git && cd unpy-mcp
+git clone https://github.com/benzstuuuuu/npy-mcp.git && cd unpy-mcp
 uv sync
 export NOTION_TOKEN_V2="v03%3AeyJ..."
 uv run unpy --help

@@ -1,10 +1,10 @@
 # npy-mcp installer — Windows PowerShell
 #
 # Single command (run in PowerShell):
-#   irm https://raw.githubusercontent.com/PigRabbBoy/npy-mcp/master/scripts/install.ps1 | iex
+#   irm https://raw.githubusercontent.com/benzstuuuuu/npy-mcp/master/scripts/install.ps1 | iex
 #
 # Or with flags (non-interactive):
-#   & ([scriptblock]::Create((irm https://raw.githubusercontent.com/PigRabbBoy/npy-mcp/master/scripts/install.ps1))) `
+#   & ([scriptblock]::Create((irm https://raw.githubusercontent.com/benzstuuuuu/npy-mcp/master/scripts/install.ps1))) `
 #       -Clients claude-desktop,cursor -Token "v03%3AeyJ..." -AllowWrite
 #
 # What it does:
@@ -29,7 +29,7 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
-$RepoUrl = "git+https://github.com/PigRabbBoy/npy-mcp@v2.1.0#subdirectory=packages/unpy-mcp"
+$RepoUrl = "git+https://github.com/benzstuuuuu/npy-mcp@v2.1.0#subdirectory=packages/unpy-mcp"
 $ServerArgs = @("--refresh", "--from", $RepoUrl, "unpy-mcp")
 
 function Say($msg)  { Write-Host "==> $msg" -ForegroundColor Cyan }
@@ -400,7 +400,7 @@ if (-not $NoSkills) {
   if (-not $haveLocal) {
     $skillSrc = Join-Path ([System.IO.Path]::GetTempPath()) "unpy-mcp-skill"
     New-Item -ItemType Directory -Force -Path $skillSrc | Out-Null
-    $base = "https://raw.githubusercontent.com/PigRabbBoy/npy-mcp/master/packages/unpy-mcp/skills/unpy-mcp"
+    $base = "https://raw.githubusercontent.com/benzstuuuuu/npy-mcp/master/packages/unpy-mcp/skills/unpy-mcp"
     try {
       Invoke-WebRequest "$base/SKILL.md" -OutFile (Join-Path $skillSrc "SKILL.md")
       Invoke-WebRequest "$base/TOOLS.md" -OutFile (Join-Path $skillSrc "TOOLS.md")
@@ -447,4 +447,4 @@ if ($skillTargets.Count -gt 0) {
 }
 Write-Host ""
 Write-Host "  To change settings later: re-run this installer (values are updated in place)."
-Write-Host "  To uninstall: irm https://raw.githubusercontent.com/PigRabbBoy/npy-mcp/master/scripts/uninstall.ps1 | iex"
+Write-Host "  To uninstall: irm https://raw.githubusercontent.com/benzstuuuuu/npy-mcp/master/scripts/uninstall.ps1 | iex"

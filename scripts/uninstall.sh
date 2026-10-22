@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # npy-mcp uninstaller — macOS + Linux
 #
-#   curl -fsSL https://raw.githubusercontent.com/PigRabbBoy/npy-mcp/master/scripts/uninstall.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/benzstuuuuu/npy-mcp/master/scripts/uninstall.sh | bash
 #
 # Removes the "unpy-mcp" entry from the AI clients you pick. Other MCP
 # servers in the same config file are left untouched. A .bak-* backup is

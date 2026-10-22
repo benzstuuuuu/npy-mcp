@@ -4,6 +4,13 @@ All notable changes to unpy-mcp are documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+- GitHub repo moved to `benzstuuuuu/npy-mcp` (owner renamed from `PigRabbBoy`):
+  install/uninstall one-liners, `uvx --from git+…` configs, clone URL and release
+  docs updated. Docker Hub image stays `pigrabbboy/npy-mcp`.
+
 ## [2.2.4] - 2026-10-07
 
 ### Fixed
