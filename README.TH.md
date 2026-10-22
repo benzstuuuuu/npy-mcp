@@ -77,6 +77,19 @@ curl -fsSL https://raw.githubusercontent.com/benzstuuuuu/npy-mcp/master/scripts/
 curl -fsSL https://raw.githubusercontent.com/benzstuuuuu/npy-mcp/master/scripts/uninstall.sh | bash
 ```
 
+**ย้ายจาก URL repo เดิม:** เจ้าของ GitHub เปลี่ยนจาก `PigRabbBoy` เป็น `benzstuuuuu`
+ถ้าคุณติดตั้งไว้ก่อนหน้านี้ config ของ AI client ยังชี้ไปที่
+`github.com/PigRabbBoy/npy-mcp` ซึ่งใช้ได้ต่อเมื่อ GitHub ยัง redirect ชื่อเดิมอยู่เท่านั้น
+สคริปต์นี้จะแก้ URL นั้นให้ในไฟล์เดิม (สำรองไฟล์ก่อนเสมอ ไม่แตะ Docker Hub
+และรันซ้ำได้อย่างปลอดภัย; ใส่ `--dry-run` / `-DryRun` เพื่อดูตัวอย่างโดยไม่เขียนไฟล์):
+```bash
+curl -fsSL https://raw.githubusercontent.com/benzstuuuuu/npy-mcp/master/scripts/migrate-owner.sh | bash
+```
+```powershell
+irm https://raw.githubusercontent.com/benzstuuuuu/npy-mcp/master/scripts/migrate-owner.ps1 | iex
+```
+จากนั้นรีสตาร์ท AI client
+
 <details>
 <summary>อยากตั้งค่าเอง? (config ราย client, Docker, pip)</summary>
 

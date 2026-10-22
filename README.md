@@ -80,6 +80,19 @@ curl -fsSL https://raw.githubusercontent.com/benzstuuuuu/npy-mcp/master/scripts/
 curl -fsSL https://raw.githubusercontent.com/benzstuuuuu/npy-mcp/master/scripts/uninstall.sh | bash
 ```
 
+**Migrating from the old repo URL:** the GitHub owner changed from `PigRabbBoy` to
+`benzstuuuuu`. If you installed earlier, your AI client config still points at
+`github.com/PigRabbBoy/npy-mcp`, which works only while GitHub keeps redirecting the
+old name. This rewrites that URL in place (backup first, Docker Hub refs untouched,
+safe to re-run; add `--dry-run` / `-DryRun` to preview):
+```bash
+curl -fsSL https://raw.githubusercontent.com/benzstuuuuu/npy-mcp/master/scripts/migrate-owner.sh | bash
+```
+```powershell
+irm https://raw.githubusercontent.com/benzstuuuuu/npy-mcp/master/scripts/migrate-owner.ps1 | iex
+```
+Then restart your AI client.
+
 <details>
 <summary>Prefer manual setup? (per-client configs, Docker, pip)</summary>
 

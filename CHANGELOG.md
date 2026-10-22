@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - GitHub repo moved to `benzstuuuuu/npy-mcp` (owner renamed from `PigRabbBoy`):
   install/uninstall one-liners, `uvx --from git+…` configs, clone URL and release
   docs updated. Docker Hub image stays `pigrabbboy/npy-mcp`.
+- New `scripts/migrate-owner.sh` / `scripts/migrate-owner.ps1`: one-command, idempotent
+  rewrite of `github.com/PigRabbBoy/npy-mcp` to `benzstuuuuu/npy-mcp` in existing AI-client
+  configs (backup first, `--dry-run` / `-DryRun` to preview, Docker Hub refs untouched).
 
 ## [2.2.4] - 2026-10-07
 
