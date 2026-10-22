@@ -146,10 +146,10 @@ for entry in listing.stdout.split("\0"):
         print("FAILED\t" + what + " (" + done.stderr.strip() + ")")
 PY
 
-results="$(python3 -I -c "$REWRITE_PY" "$DRY_RUN" "${CONFIG_PATHS[@]}")"
+results="$(python3 -I -c "$REWRITE_PY" "$DRY_RUN" "${CONFIG_PATHS[@]}")" || die "python3 failed (exit $?) while rewriting configs"
 
 if command -v git >/dev/null 2>&1 && [[ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" == true ]]; then
-  results+=$'\n'"$(python3 -I -c "$REMOTES_PY" "$DRY_RUN")"
+  results+=$'\n'"$(python3 -I -c "$REMOTES_PY" "$DRY_RUN")" || die "python3 failed (exit $?) while rewriting git remotes"
 fi
 
 updated=0 remotes=0 ok=0 failed=0
