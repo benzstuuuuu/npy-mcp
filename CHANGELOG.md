@@ -6,6 +6,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.5] - 2026-11-14
+
+### Fixed
+- **Stalled API connections no longer hang forever** (issue #43): `NotionClient.post`
+  and every other session request passed no `timeout` to `requests`, so a connection
+  that stalled after being established (dropped packet, half-closed socket, dead proxy)
+  blocked the read with no limit — urllib3 `Retry` could never help because a request
+  with no timeout never fails. The shared session's adapter now applies a default
+  `(connect=10s, read=120s)` timeout to any request without an explicit one, so the
+  existing `Retry` (429/502/503/504) can finally retry stalled reads. Callers that pass
+  their own timeout (export download, S3 uploads, image fetch) are untouched. Raise the
+  read timeout for very large `queryCollection` calls with `UNPY_REQUEST_TIMEOUT=<seconds>`
+  (default 120; 0/negative/invalid values fall back to the default — there is no way to
+  wait forever on purpose).
+- Test suite: 4 pre-existing failures in `test_comments_gate.py` fixed — the CLI now
+  raises `typer.Exit` but the tests still asserted `click.exceptions.Exit` (different
+  classes since the Typer migration).
+
 ### Changed
 - GitHub repo moved to `benzstuuuuu/npy-mcp` (owner renamed from `PigRabbBoy`):
   install/uninstall one-liners, `uvx --from git+…` configs, clone URL and release
