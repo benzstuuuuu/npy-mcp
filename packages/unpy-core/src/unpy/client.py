@@ -18,7 +18,7 @@ from .collection import (
     COLLECTION_VIEW_TYPES,
     TemplateBlock,
 )
-from .config import batch_max_ops
+from .config import DEFAULT_REQUEST_TIMEOUT, batch_max_ops
 from .logger import logger
 from .monitor import Monitor
 from .operations import operation_update_last_edited, build_operation
@@ -63,6 +63,27 @@ def _discussion_context(client, dval, recordmap):
     return "".join(parts)
 
 
+DEFAULT_CONNECT_TIMEOUT = 10
+
+
+class _TimeoutAdapter(HTTPAdapter):
+    """HTTPAdapter that applies a default (connect, read) timeout to every
+    request which doesn't pass its own. Without it, a connection that stalls
+    after it is established (dropped packet, half-closed socket, dead proxy)
+    blocks the read forever — urllib3 Retry can never help because a request
+    with no timeout never fails. Callers that pass an explicit timeout (e.g.
+    the export download, S3 uploads) are left untouched."""
+
+    def __init__(self, *args, timeout=(DEFAULT_CONNECT_TIMEOUT, DEFAULT_REQUEST_TIMEOUT), **kwargs):
+        self._timeout = timeout
+        super().__init__(*args, **kwargs)
+
+    def send(self, request, **kwargs):
+        if kwargs.get("timeout") is None:
+            kwargs["timeout"] = self._timeout
+        return super().send(request, **kwargs)
+
+
 def create_session(client_specified_retry=None):
     """
     retry on 502
@@ -89,11 +110,17 @@ def create_session(client_specified_retry=None):
     # v2: size the connection pool to the fan-out worker count so threads
     # don't queue behind urllib3's default pool of 10 (or fight with
     # pool_block=True-style serialization)
-    from .config import max_workers
+    from .config import max_workers, request_timeout
 
     pool = max(10, max_workers() * 2)
-    adapter = HTTPAdapter(max_retries=retry, pool_connections=pool, pool_maxsize=pool)
+    adapter = _TimeoutAdapter(
+        max_retries=retry,
+        pool_connections=pool,
+        pool_maxsize=pool,
+        timeout=(DEFAULT_CONNECT_TIMEOUT, request_timeout()),
+    )
     session.mount("https://", adapter)
+    session.mount("http://", adapter)
     # Mimic browser headers to avoid bot detection / rate-limit differences
     session.headers.update({
         "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "

@@ -9,8 +9,8 @@ plus the config-file paths (comments = true, allow_write = true).
 
 import os
 
-import click
 import pytest
+import typer
 
 FAKE_TOKEN = "test-token-not-real"
 
@@ -31,7 +31,7 @@ def cli(monkeypatch, tmp_path):
 
 class TestCommentsGate:
     def test_read_only_rejects(self, cli):
-        with pytest.raises(click.exceptions.Exit):
+        with pytest.raises(typer.Exit):
             cli._check_comments_enabled()
 
     def test_comments_env_accepts(self, cli, monkeypatch):
@@ -40,7 +40,7 @@ class TestCommentsGate:
 
     def test_comments_env_zero_rejects(self, cli, monkeypatch):
         monkeypatch.setenv("NOTION_ALLOW_COMMENTS", "0")
-        with pytest.raises(click.exceptions.Exit):
+        with pytest.raises(typer.Exit):
             cli._check_comments_enabled()
 
     def test_write_env_accepts(self, cli, monkeypatch):
@@ -57,12 +57,12 @@ class TestCommentsGate:
 
     def test_config_without_flags_rejects(self, cli, tmp_path):
         (tmp_path / "config.toml").write_text('space_id = "x"\n')
-        with pytest.raises(click.exceptions.Exit):
+        with pytest.raises(typer.Exit):
             cli._check_comments_enabled()
 
     def test_write_gate_still_rejects_comments_env(self, cli, monkeypatch):
         """The comments opt-in must NOT open full write commands."""
         monkeypatch.setenv("NOTION_ALLOW_COMMENTS", "1")
         assert cli._write_allowed() is False
-        with pytest.raises(click.exceptions.Exit):
+        with pytest.raises(typer.Exit):
             cli._check_write_enabled()

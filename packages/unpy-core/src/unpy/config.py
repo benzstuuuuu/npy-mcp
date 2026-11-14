@@ -11,6 +11,7 @@ import os
 DEFAULT_BATCH_MAX_OPS = 100
 DEFAULT_CACHE_TTL_SECONDS = 15.0
 DEFAULT_MAX_WORKERS = 8
+DEFAULT_REQUEST_TIMEOUT = 120.0
 
 
 def legacy_mode() -> bool:
@@ -60,3 +61,15 @@ def max_workers() -> int:
     except ValueError:
         val = machine_worker_default()
     return max(1, min(8, val))
+
+
+def request_timeout() -> float:
+    """Read timeout in seconds for every API request without an explicit
+    one (the connect timeout is fixed at 10s). Bump it for very large
+    queryCollection calls; there is no way to wait forever on purpose."""
+    raw = os.environ.get("UNPY_REQUEST_TIMEOUT")
+    try:
+        val = float(raw) if raw else DEFAULT_REQUEST_TIMEOUT
+    except ValueError:
+        val = DEFAULT_REQUEST_TIMEOUT
+    return val if val > 0 else DEFAULT_REQUEST_TIMEOUT

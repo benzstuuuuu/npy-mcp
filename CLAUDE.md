@@ -66,6 +66,10 @@ NOTION_MCP_AUTH_TOKEN=secret python -m unpy_mcp --transport http --port 8000
   `create_media`) may open; default is the working directory, `/` disables the limit
 - `NOTION_CONFIG_DIR` — config directory (default `~/.config/unpy-mcp`)
 - `NOTIONPY_LOG_LEVEL` — logging level: debug, info, warning, error, disabled
+- `UNPY_REQUEST_TIMEOUT` — read timeout in seconds for API requests that don't set
+  one explicitly (connect timeout is fixed at 10s). Default 120. A stalled
+  connection now fails with `ReadTimeout` (and GETs are retried) instead of
+  hanging forever; bump it for very large `queryCollection` calls
 
 ## Architecture (v2)
 
